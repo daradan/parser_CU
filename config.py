@@ -6,7 +6,13 @@ load_dotenv(find_dotenv())
 
 MARKET = 'Computeruniverse'
 
-LAST_N_PRICES = 10
+LAST_N_PRICES = 15
+MIN_PRICE = 50
+PERCENTAGE_BELOW = -4
+PERCENTAGE_ABOVE = 4
+PERCENTAGE = 15
+SLEEP_START = 3
+SLEEP_FINISH = 20
 TG_TOKEN = os.getenv('TG_TOKEN')
 TG_CHANNEL = os.getenv('TG_CHANNEL')
 TG_CHANNEL_ERROR = os.getenv('TG_CHANNEL_ERROR')
@@ -16,10 +22,12 @@ URL = 'https://www.computeruniverse.net/'
 URL_P = 'https://search.computeruniverse.net/search'
 URL_C = 'https://webapi.computeruniverse.net/api/catalog/topmenu/'
 URL_I = 'https://img.computerunivers.net'
+URL_I_MISSING = 'https://raw.githubusercontent.com/daradan/img/master/icon-image-not-found-free-vector.jpg'
 
 CURRENCIES = {'EUR': '€', 'KZT': '₸', 'RUB': '₽'}
 
 HEADERS = {
+    'origin': 'https://www.computeruniverse.net',
     'referer': 'https://www.computeruniverse.net/',
     'accept-language': 'en-US,en;q=0.9',
     'user-agent': os.getenv('USER_AGENT'),

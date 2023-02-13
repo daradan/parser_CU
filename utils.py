@@ -16,6 +16,8 @@ def get_images(images_raw: list) -> str:
 
 
 def get_description(description_raw: str) -> str:
+    if description_raw == '<ul></ul>':
+        return ''
     descriptions_list = []
     li = re.findall(r'<li>(.*?)</li>', description_raw)
     for span in li:
@@ -33,10 +35,34 @@ def get_percentage(price: int, price_old: int) -> str:
     return str(percent)
 
 
+def check_lowest_price(price: float, all_prices: List[CUPrices]) -> bool:
+    prices_list = []
+    for data_price in all_prices:
+        prices_list.append(float(data_price.price))
+    price_diff = min(prices_list) - (min(prices_list) * config.PERCENTAGE / 100)
+    if min(prices_list) > price > config.MIN_PRICE and price_diff > price:
+        return True
+    return False
+
+
+def clear_all_prices(all_prices: List[CUPrices]) -> List[CUPrices]:
+    if len(all_prices) <= 2:
+        return all_prices
+    all_prices_cleared = []
+    for price in all_prices:
+        if int(price.discount) == 0 or not(config.PERCENTAGE_BELOW <= int(price.discount) <= config.PERCENTAGE_ABOVE):
+            all_prices_cleared.append(price)
+    while len(all_prices_cleared) > config.LAST_N_PRICES:
+        # all_prices_cleared.pop(-2)
+        all_prices_cleared.pop()
+    return all_prices_cleared
+
+
 def make_image_caption(product_obj: ProductSchema, price_obj: PriceSchema, last_n_prices) -> str:
     fixed_category = fix_category(product_obj.category)
+    fixed_brand = fix_category(product_obj.brand)
     image_caption = f"<b>{product_obj.name}</b>\n" \
-                    f"#{config.MARKET} #{fixed_category} #{product_obj.brand}\n\n" \
+                    f"#{fixed_category} #{fixed_brand}\n\n" \
                     f"{convert_currencies(price_obj.price)}\n\n" \
                     f"{product_obj.descriptions}\n\n" \
                     f"{fix_last_n_prices(last_n_prices)}\n" \

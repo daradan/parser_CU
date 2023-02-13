@@ -1,4 +1,4 @@
-from typing import Union
+from typing import Union, List
 from sqlalchemy.orm import Session
 from models import CUProducts, CUPrices
 # from .database import SessionLocal
@@ -52,9 +52,13 @@ class PricesCrud(Crud):
         return self.session.query(self.schema).filter_by(product_id=product_id).order_by(self.schema.created.desc()).\
             first()
 
-    def get_last_n_prices(self, product_id: int):
+    def get_last_n_prices(self, product_id: int) -> List[CUPrices]:
         return self.session.query(self.schema).filter_by(product_id=product_id).order_by(self.schema.created.desc()).\
             limit(config.LAST_N_PRICES).all()
+
+    def get_all_prices(self, product_id: int) -> List[CUPrices]:
+        return self.session.query(self.schema).filter_by(product_id=product_id)\
+            .order_by(self.schema.created.desc()).all()
 
 
 class CUProductsCrud(ProductsCrud):
