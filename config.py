@@ -69,3 +69,11 @@ PARAMS = {
     'lang': '1',
     'cachecountry': 'RU',
 }
+
+CATEGORIES_FOR_NOTIFICATE = ['Laptops / Notebooks', 'Desktop PCs', 'Tablet PCs', 'Monitors', 'eGPU Case (GPU cases)',
+                             'Processors (CPUs)', 'PCI Express Graphics Cards', 'Motherboards', 'Memory RAM',
+                             'PC Power Supply Unit', 'SSD Drive', 'External SSD Hard Drives', 'SATA Hard Drives',
+                             'Computer Cases', 'CPU Cooler & CPU Fans', 'Wireless LAN Routers, Accesspoints',
+                             'Smartphones & Cell Phones', 'Action Cams', 'Smartwatches', 'Projectors',
+                             'Sony PlayStation 5 Consoles', 'Nintendo Switch Consoles', 'Xbox Series X Consoles',
+                             'Robotic Vacuum Cleaners', ]

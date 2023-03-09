@@ -18,7 +18,7 @@ def send_error(message):
         logging.info(f"TG ERROR: {data}")
         time_to_sleep = data['parameters']['retry_after']
         time.sleep(time_to_sleep)
-        send_error(message)
+        return send_error(message)
     return r.status_code
 
 
@@ -35,7 +35,7 @@ def send_msg(message):
         logging.info(f"TG MSG: {data}\nMessage is: {message}")
         time_to_sleep = data['parameters']['retry_after']
         time.sleep(time_to_sleep)
-        send_error(message)
+        return send_error(message)
     return r.status_code
 
 
@@ -79,5 +79,5 @@ def send_as_media_group(image_caption, product):
             send_msg(image_caption)
         time_to_sleep = data['parameters']['retry_after']
         time.sleep(time_to_sleep)
-        send_as_media_group(image_caption, product)
+        return send_as_media_group(image_caption, product)
     return r.status_code
