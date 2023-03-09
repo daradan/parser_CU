@@ -24,7 +24,7 @@ def get_subcategory(category_obj):
 def get_categories(session: requests.Session, proxies: list[str]) -> list[dict]:
     logging.info(f"Categories get")
     if not proxies:
-        os.remove('proxies.json')
+        os.remove('../proxies.json')
         session.cookies.clear()
         proxies = Proxies().start()
         return get_categories(session, proxies)

@@ -51,7 +51,7 @@ class CompUnivParser:
 
     def get_response(self, category: dict, page: int) -> requests.models.Response | None:
         if not self.proxies:
-            os.remove('proxies.json')
+            os.remove('../proxies.json')
             self.session.cookies.clear()
             self.proxies = Proxies().start()
             return self.get_response(category, page)
@@ -61,7 +61,8 @@ class CompUnivParser:
             'filters'] = f"(categoryid:{category['id']} OR categoryids:{category['id']}) {config.filters}"
         json_data['requests'][0]['params']['ruleContexts'][0] = f"facet_category_{category['id']}"
         try:
-            response = self.session.post(config.URL_P, headers=config.HEADERS, json=json_data)
+            response = self.session.post(config.URL_P, headers=config.HEADERS, json=json_data,
+                                         proxies={'https': self.proxies[0]}, timeout=10)
             if response.status_code != 200:
                 logging.info(f"Status code not 200 in proxy {self.proxies[0]}. Try to use next proxy")
                 self.proxies.pop(0)
