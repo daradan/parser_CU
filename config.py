@@ -1,7 +1,6 @@
 import os
 from dotenv import load_dotenv, find_dotenv
 
-
 load_dotenv(find_dotenv())
 
 MARKET = 'Computeruniverse'
@@ -10,7 +9,7 @@ LAST_N_PRICES = 15
 MIN_PRICE = 50
 PERCENTAGE_BELOW = -4
 PERCENTAGE_ABOVE = 4
-PERCENTAGE = 15
+PERCENTAGE = 20
 SLEEP_START = 3
 SLEEP_FINISH = 20
 TG_TOKEN = os.getenv('TG_TOKEN')
@@ -70,10 +69,55 @@ PARAMS = {
     'cachecountry': 'RU',
 }
 
-CATEGORIES_FOR_NOTIFICATE = ['Laptops / Notebooks', 'Desktop PCs', 'Tablet PCs', 'Monitors', 'eGPU Case (GPU cases)',
-                             'Processors (CPUs)', 'PCI Express Graphics Cards', 'Motherboards', 'Memory RAM',
-                             'PC Power Supply Unit', 'SSD Drive', 'External SSD Hard Drives', 'SATA Hard Drives',
-                             'Computer Cases', 'CPU Cooler & CPU Fans', 'Wireless LAN Routers, Accesspoints',
-                             'Smartphones & Cell Phones', 'Action Cams', 'Smartwatches', 'Projectors',
-                             'Sony PlayStation 5 Consoles', 'Nintendo Switch Consoles', 'Xbox Series X Consoles',
-                             'Robotic Vacuum Cleaners', ]
+ALLOWED_CATEGORIES = ['AiO Liquid Cooling', 'Amplifier', 'Bean-to-Cup Coffee Machines', 'Bluetooth Sticks',
+                      'Boomboxes', 'CPU Cooler & CPU Fans', 'Chargers and Power Supplies', 'Coffee Mills',
+                      'Coffee Pod / Capsule Machines', 'Compact Stereos', 'Compact System Cameras',
+                      'Computer Case Fans', 'Computer Cases', 'Computer Keyboard', 'Computer Mouse', 'Desktop PCs',
+                      'Digital Cameras', 'Digital Sinage Monitor', 'Drawing Tablets', 'Drip Coffee Machine',
+                      'Drones & RC Models', 'E-Book Readers', 'External Drive Cases', 'External Hard Drives',
+                      'Fans & Cooling for cases', 'Gaming chairs', 'Headphones', 'Headsets',
+                      'Headsets for Mobile / Landline Phones', 'Home Theatre Systems', 'Joysticks, Gamepads, Wheels',
+                      'Keyboards', 'LED TV / LCD TV', 'Laptops / Notebooks', 'MP3 Players',
+                      'Mediaplayer / Streaming Clients', 'Memory', 'Memory Card Reader ',
+                      'Memory Card Readers & Adapters', 'Memory RAM', 'Mice', 'Microphones', 'Monitors',
+                      'Motherboard Components', 'Motherboards', 'Mouse Pads', 'NAS -  Network Attached Storage',
+                      'Nintendo Switch Accesories', 'Nintendo Switch Consoles', 'Nintendo Switch Games',
+                      'Operating Systems', 'PC Barebones', 'PC Games', 'PC Lightning', 'PC Power Supply Unit',
+                      'PCI Express Graphics Cards', 'Power Supplies', 'Powerbanks', 'Processors (CPUs)',
+                      'Projector Screens', 'Projectors', 'Robotic Vacuum Cleaners', 'SATA Hard Drives',
+                      'SD / SDHC/ SDXC Memory Cards', 'SSD Drive', 'Single Board Computer',
+                      'Smartphones & Cell Phones', 'Smartwatches', 'Sony PlayStation 4 Accessorie',
+                      'Sony PlayStation 4 Games', 'Sony PlayStation 5 Accessories', 'Sony PlayStation 5 Consoles',
+                      'Sony PlayStation 5 Games', 'Sound Cards', 'Speakers (HiFi)', 'Tablet PCs', 'Tripods',
+                      'USB Flash Drives', 'USB Hubs', 'USB-Controller', 'Water Cooling PC', 'Webcams',
+                      'Weather Stations', 'WiFi Sticks / Cards', 'Wireless LAN Routers, Accesspoints',
+                      'Xbox One Games', 'Xbox One accessories', 'Xbox Series X Accessories', 'Xbox Series X Consoles',
+                      'Xbox Series X Games', 'eGPU Case (GPU cases)', 'espresso machine', 'network cameras',]
+
+# STOP_CATEGORIES = ['Construction Illumination', 'Generators', 'Construction Site Radios', 'Distance Meters',
+#                     'Power Tool Batteries & Chargers', 'Compressors', 'Hand Tools', 'Cordless Drills',
+#                     'Milling Machines', 'Planers', 'Multi Tools', 'Table Saws', 'Angle Grinders', 'Pressure Washers',
+#                     'Sweepers', 'Leaf Blowers / Leaf Vacs', 'Lawn sprinkler', 'Garden Water Pumps', 'Garden Hoses',
+#                     'Garden hose management', 'Pruning Saws', 'Pruning Shears', 'Chippers / Shredders',
+#                     'Electric Hedge Trimmers', 'Chainsaws', 'Cordless Electric Mower', 'Grass Trimmers',
+#                     'Charcoal Grill', 'Contact Grill', 'Electric Grill', 'Gas Grill', 'Mens Grooming',
+#                     'Trimmers & Clippers', 'Dental Care', 'Vacuum Cleaners', 'Kitchen Appliances',
+#                     'Stand Mixers / Blenders', 'Deep Fryers', 'Hand Blenders', 'Kettles', 'Toasters',
+#                     'Water Filtration', 'Juicers', 'Knife sharpeners', 'Coffee, tea and cocoa',
+#                     'Wall Ovens / Built In Ovens', 'Built In Cooktops', 'Fridges / Freezers', 'Fridges',
+#                     'Freestanding Dishwasher', 'Integrated Dishwashers', 'Washing Machines', 'Dryer', 'LEGO',
+#                     'Playmobil', 'Carrera', 'Satellite Dishes & Accessories', 'DVB S2 Receiver', 'DVB-C Receiver',
+#                     'DVB-T2 Receivers', 'HDD Recorders', 'Blu-ray / DVD Players', 'AV-Receiver', '4K Receiver',
+#                     'Compact Stereos', 'Boomboxes', 'DAB Radio', 'Internet Radios', 'Amplifier', 'Turntables',
+#                     'Car HiFi/Video', 'Universal Remotes', 'Hard and Soft Cases for Digital Cameras', 'Flash Units',
+#                     'Gimbal', 'Battery Grips', 'Batteries for Digital Cameras',
+#                     'Digital Camera Chargers & Power Supply', 'Studio Photography', 'Telephones analog cordless',
+#                     'VoIP (Voice over IP)', 'Smartphone Cases / Mobile Cases', 'DVD devices', 'Blu-ray Disc Drives',
+#                     'Cables & Adapters', 'HDMI Cable', 'Network Cables', 'Optic Fibre Cables',
+#                     'SATA Cable / PATA-Cable', 'AVM Fritzbox WiFi Router', 'Switches',
+#                     'Uninterrupted Power Supply UPS', 'APC Uninterruptible Power Supply',
+#                     'Multiple Sockets & Power Cords', 'Batteries (rechargeable)', 'Shredders', 'KVM Switches',
+#                     'Document Scanners / Document Servers', 'Barcode Scanner', 'Document Scanners', 'Flatbed scanner',
+#                     'Handheld Wand', 'Paper Sheets', 'Ink Cartridges', 'Toners', 'Public Displays',
+#                     'Monitor Accessories', 'Tablet PC Cases', 'Servers', 'Accessories Servers',
+#                     'Accessories Notebooks', 'Laptop Cases', 'Mini Fridges', ]

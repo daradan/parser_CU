@@ -51,7 +51,7 @@ class CompUnivParser:
 
     def get_response(self, category: dict, page: int) -> requests.models.Response | None:
         if not self.proxies:
-            os.remove('../proxies.json')
+            os.remove('proxies.json')
             self.session.cookies.clear()
             self.proxies = Proxies().start()
             return self.get_response(category, page)
@@ -127,7 +127,7 @@ class CompUnivParser:
                 return
             all_prices: List[CUPrices] = self.prices_crud.get_all_prices(product.id)
             is_lowest_price = utils.check_lowest_price(float(price_obj.price), all_prices[1:])
-            if is_lowest_price:   # and utils.is_in_ctgr_for_ntfct(category):
+            if is_lowest_price and utils.is_in_allowed_ctfrs(product_obj.category):
                 all_prices_cleared = utils.clear_all_prices(all_prices)
                 image_caption = utils.make_image_caption(product_obj, price_obj, all_prices_cleared)
                 try:
@@ -144,4 +144,9 @@ if __name__ == '__main__':
         format="%(asctime)s %(levelname)s:%(message)s",
         level=logging.INFO,
     )
-    CompUnivParser().start()
+    while True:
+        try:
+            CompUnivParser().start()
+            break
+        except Exception as e:
+            logging.error(e)

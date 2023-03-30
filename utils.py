@@ -127,9 +127,12 @@ def convert_currencies(price: str) -> str:
                 currencies_list.append(temp)
     return ' / '.join(currencies_list)
 
-
-def is_in_ctgr_for_ntfct(category: str) -> bool:
-    for ctgr_for_ntfct in config.CATEGORIES_FOR_NOTIFICATE:
-        if category == ctgr_for_ntfct:
-            return True
+def is_in_allowed_ctfrs(category: str) -> bool:
+    if category in config.ALLOWED_CATEGORIES:
+        return True
     return False
+# def is_in_stop_ctgrs(category: str) -> bool:
+#     for stop_ctgr in config.STOP_CATEGORIES:
+#         if category == stop_ctgr:
+#             return True
+#     return False
